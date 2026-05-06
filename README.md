@@ -133,4 +133,4 @@ Licensed under the GNU General Public License v3.0. See [LICENSE](./LICENSE) for
 
 ## 👤 Author
 
-**Liran M. Schwartz** ([LiranOG](https://github.com/LiranOG)) — Founder & Lead Architect. Independent researcher in high-performance simulation, deterministic numerics, and autonomous systems engineering.
+**Liran M. Schwartz** ([LiranOG](https://github.com/LiranOG)) — Founder & Lead Architect.
