@@ -128,7 +128,6 @@ For responsible disclosure of vulnerabilities, see [SECURITY.md](./SECURITY.md).
 ## 📄 License
 
 Licensed under the GNU General Public License v3.0. See [LICENSE](./LICENSE) for the full text.
-Commercial licensing is available — see the table above and open an Issue to inquire.
 
 ---
 
