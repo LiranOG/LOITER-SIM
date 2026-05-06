@@ -22,15 +22,6 @@ The engine delivers three guarantees that no existing open-source simulator prov
 
 ---
 
-## 🌐 Project Website
-
-The full project landing page — including the milestone timeline, 
-audience overview, and licensing details — is available at:
-
-**[liranog.github.io/LOITER-SIM](https://liranog.github.io/LOITER-SIM)**
-
----
-
 ## 🚦 Status — Pre-Alpha · Design Phase · v1.0 Target: Q1 2028
 
 > **No executable simulation code is published yet.** This repository currently contains the architecture specification, physics specification, design rationale, and engineering roadmap. Implementation of the core engine begins in Q4 2026.
@@ -94,28 +85,12 @@ For complete architectural detail, read [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ---
 
-## 🎯 Built for Three Audiences Simultaneously
+## 🌐 Project Website
 
-- **AI/RL researchers** — A genuinely deterministic, high-throughput environment for multi-agent reinforcement learning, free from the non-determinism of game-engine-based simulators. Reproducible benchmarks, peer-reviewable physics, Gymnasium-native integration.
-- **Military operators and training commands** — A single platform to train against mass drone attacks, evaluate electronic warfare effects, exercise counter-UAS tactics, and prepare human operators for engagements that have no real-world training analog.
-- **System integrators and prime contractors** — A commercially licensable codebase with a clean architecture, zero rendering dependency, and explicit support for embedding into existing simulation federations (DIS/HLA) and C4I infrastructure.
+The full project landing page — including the milestone timeline, 
+audience overview, and licensing details — is available at:
 
-For the full problem statement, see [docs/WHY.md](./docs/WHY.md).
-
----
-
-## 🧪 Open-Source Philosophy & Dual Licensing
-
-The community edition is released under the **GNU General Public License v3.0**. Any improvements made to the public engine must be contributed back to the community — this is by design.
-
-For organizations that need to embed LOITER-SIM into proprietary, classified, or closed-source systems, a **commercial license** is available. This exempts the licensee from the GPL's copyleft obligation and provides additional capabilities (advanced threat libraries, classified-environment support, GPU acceleration, DIS/HLA integration, priority support).
-
-| Edition | License | Agents | Capabilities |
-|---------|---------|--------|--------------|
-| **Community** | GPL v3.0 | Up to 500 | Full open-source engine, basic sensors, RL API |
-| **Commercial** | Proprietary | Unlimited | Advanced threat models, GPU acceleration, DIS/HLA, classified deployment, priority support |
-
-*Defence ministries, prime contractors, and integrators: open a GitHub Issue tagged `commercial-licensing` to begin a conversation.*
+**[liranog.github.io/LOITER-SIM](https://liranog.github.io/LOITER-SIM)**
 
 ---
 
