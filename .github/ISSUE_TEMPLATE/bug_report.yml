@@ -9,7 +9,7 @@ body:
     attributes:
       value: |
         Thank you for filing a bug report. Please fill in all sections below.
-        **Do not use this form for security vulnerabilities** — see [SECURITY.md](../SECURITY.md) instead.
+        **Do not use this form for security vulnerabilities** — see `SECURITY.md` instead.
 
   - type: textarea
     id: summary
