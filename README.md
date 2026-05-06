@@ -3,12 +3,12 @@
 # LOITER-SIM
 ### The Deterministic Drone Swarm Engine for Mission-Critical AI Training
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![Status](https://img.shields.io/badge/status-pre--alpha-orange)]()
-[![Phase](https://img.shields.io/badge/phase-design-blue)]()
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-green.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Status](https://img.shields.io/badge/status-pre--alpha-2d3936)]()
+[![Phase](https://img.shields.io/badge/phase-design-lightgreen)]()
 
-[![C++17](https://img.shields.io/badge/C++-17-blue)]()
-[![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen)]()
+[![C++17](https://img.shields.io/badge/C++-17-007acc)]()
+[![Python](https://img.shields.io/badge/Python-3.10%2B-007acc)]()
 
 [![Target](https://img.shields.io/badge/v1.0--target-Q1%202028-orange)]()
 
