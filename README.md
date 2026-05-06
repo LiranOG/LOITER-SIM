@@ -51,13 +51,13 @@ If, by Q1 2027, this repository still has no committed code, the project is fair
 | Capability | Status | Target | Description |
 |------------|--------|--------|-------------|
 | **6-DOF rigid body dynamics** | 📐 Spec complete | Q4 2026 | Quaternion-based flight model, Euler-Newton integration (RK4), AoA-dependent aerodynamics, configurable propulsion |
+| **Bitwise-deterministic execution** | 📐 Spec complete | Q4 2026 | Identical seed → identical floating-point result, every run, on any IEEE 754-compliant platform |4
 | **Adaptive Mesh Refinement** | 📐 Spec complete | Q1 2027 | Custom Berger-Oliger AMR engine — high resolution only where it matters |
-| **Bitwise-deterministic execution** | 📐 Spec complete | Q4 2026 | Identical seed → identical floating-point result, every run, on any IEEE 754-compliant platform |
 | **Multi-agent swarm scaling** | 📅 Planned | Q2 2027 | ECS architecture targeting 50,000+ simultaneous agents on consumer hardware |
 | **Physics-based sensor simulation** | 📅 Planned | Q2 2027 | Radar (RCS-based), EO/IR (FoV raycasting), INS/GPS with configurable jamming and spoofing |
-| **Dynamic mesh networking** | 📅 Planned | Q4 2027 | Realistic packet loss, latency, and range constraints for inter-drone and C2 links |
 | **YAML scenario definition** | 📅 Planned | Q3 2027 | Complex missions described entirely in YAML — no recompilation |
 | **Python RL API (Gymnasium)** | 📅 Planned | Q3 2027 | `step()` interface for PyTorch/TensorFlow; headless batch execution up to 1000× real-time |
+| **Dynamic mesh networking** | 📅 Planned | Q4 2027 | Realistic packet loss, latency, and range constraints for inter-drone and C2 links |
 | **DIS / HLA interoperability** | 📅 Planned | Q4 2027 | Connect to existing C4I systems and multi-player tactical trainers |
 | **Human-in-the-loop VR/FPV** | 📅 Planned | Q4 2027 | Point-and-fly interface with behavior trees for supervised autonomy |
 | **v1.0 Stable Release** | 🎯 Target | **Q1 2028** | Full engine, commercial licensing infrastructure, complete documentation |
