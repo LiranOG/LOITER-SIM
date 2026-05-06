@@ -1,14 +1,20 @@
+<div align="center">
+
 # LOITER-SIM
 ### The Deterministic Drone Swarm Engine for Mission-Critical AI Training
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Status](https://img.shields.io/badge/status-pre--alpha-orange)]()
 [![Phase](https://img.shields.io/badge/phase-design-blue)]()
+
 [![C++17](https://img.shields.io/badge/C++-17-blue)]()
 [![Python](https://img.shields.io/badge/Python-3.10%2B-brightgreen)]()
+
 [![Target](https://img.shields.io/badge/v1.0--target-Q1%202028-orange)]()
 
-> **"Train your autonomous systems against 10,000 threats before the first one ever leaves the ground."**
+***Train your autonomous systems against 10,000 threats before the first one ever leaves the ground.***
+
+</div>
 
 LOITER-SIM is a standalone, high-performance C++17 simulation engine for loitering munitions, suicide drones, and autonomous UAV swarms. It is designed for training reinforcement learning agents at scale, exercising human operators in mass-attack scenarios, and evaluating counter-UAS tactics in congested, electronically contested environments.
 
