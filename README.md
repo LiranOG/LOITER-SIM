@@ -160,5 +160,3 @@ Commercial licensing is available — see the table above and open an Issue to i
 ## 👤 Author
 
 **Liran M. Schwartz** ([LiranOG](https://github.com/LiranOG)) — Founder & Lead Architect. Independent researcher in high-performance simulation, deterministic numerics, and autonomous systems engineering.
-
-> *"A simulator is a lie built from math. Make it a perfectly repeatable lie, and AI will discover the truth."*
