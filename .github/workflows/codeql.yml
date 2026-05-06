@@ -1,0 +1,59 @@
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Run weekly on Monday at 02:00 UTC
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+jobs:
+  codeql:
+    name: CodeQL (${{ matrix.language }})
+    runs-on: ubuntu-24.04
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [cpp, python]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies (C++ only)
+        if: matrix.language == 'cpp'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-13 g++-13 cmake ninja-build \
+            libhdf5-dev libyaml-cpp-dev libeigen3-dev
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          queries: security-extended, security-and-quality
+
+      - name: Build (C++ only)
+        if: matrix.language == 'cpp'
+        env:
+          CC: gcc-13
+          CXX: g++-13
+        run: |
+          cmake -B build-cql \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DLOITER_SIM_BUILD_TESTS=ON
+          cmake --build build-cql --parallel $(nproc)
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"

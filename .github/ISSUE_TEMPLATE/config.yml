@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/LiranOG/LOITER-SIM/security/advisories/new
+    about: "Do NOT open a public issue for security vulnerabilities. Use the private advisory process."
+  - name: Commercial Licensing Inquiry
+    url: https://github.com/LiranOG/LOITER-SIM/issues/new?labels=commercial-licensing&title=%5BLICENSE%5D+
+    about: "Enquiries about commercial licensing for defence/proprietary use."
+  - name: Research Collaboration
+    url: https://github.com/LiranOG/LOITER-SIM/issues/new?labels=collaboration&title=%5BCOLLAB%5D+
+    about: "Academic or research collaboration proposals."

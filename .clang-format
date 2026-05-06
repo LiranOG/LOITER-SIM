@@ -1,0 +1,84 @@
+---
+# LOITER-SIM clang-format configuration
+# Based on Google style with modifications for clarity and physics code readability.
+
+Language: Cpp
+BasedOnStyle: Google
+
+# Indentation
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+AccessModifierOffset: -4
+NamespaceIndentation: None
+
+# Line length — 100 chars allows for verbose physics variable names with units
+ColumnLimit: 100
+
+# Braces
+BreakBeforeBraces: Attach
+BraceWrapping:
+  AfterControlStatement: false
+  AfterFunction: false
+  AfterNamespace: false
+  AfterClass: false
+  BeforeElse: false
+
+# Includes
+IncludeBlocks: Regroup
+SortIncludes: CaseInsensitive
+IncludeCategories:
+  # 1. This file's own header (no angle brackets, same name)
+  - Regex: '^".*\.hpp"'
+    Priority: 1
+  # 2. Project headers
+  - Regex: '^"(core|bindings|tools|tests)/'
+    Priority: 2
+  # 3. Third-party
+  - Regex: '^<(Eigen|hdf5|yaml-cpp|pybind11)'
+    Priority: 3
+  # 4. Standard library
+  - Regex: '^<'
+    Priority: 4
+
+# Function and template parameters
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AlwaysBreakTemplateDeclarations: Yes
+BinPackParameters: false
+BinPackArguments: false
+
+# Comments
+ReflowComments: false           # Don't reflow — physics comments have deliberate formatting
+SpacesBeforeTrailingComments: 2
+
+# Alignment — allows physics tables to align nicely
+AlignConsecutiveAssignments:
+  Enabled: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+AlignConsecutiveDeclarations:
+  Enabled: false                # Too aggressive for physics code
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 1
+
+# Pointers and references
+PointerAlignment: Left          # T* ptr, not T *ptr or T * ptr
+ReferenceAlignment: Left
+
+# Penalties (controls line breaking decisions)
+PenaltyBreakComment: 300
+PenaltyBreakFirstLessLess: 120
+PenaltyBreakString: 1000
+PenaltyExcessCharacter: 1000000
+PenaltyReturnTypeOnItsOwnLine: 200
+
+# Miscellaneous
+Cpp11BracedListStyle: true
+SpaceAfterCStyleCast: false
+SpacesInAngles: Never
+SpacesInContainerLiterals: false
+SpaceBeforeCpp11BracedList: false
+...

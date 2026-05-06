@@ -1,0 +1,49 @@
+cff-version: 1.2.0
+message: >
+  If you use LOITER-SIM in your research, please cite it using the metadata in this file.
+  A formal academic paper is planned for submission concurrent with the v1.0 release (Q1 2028).
+
+title: "LOITER-SIM: A Deterministic Multi-Agent Simulation Engine for Autonomous UAV Swarms"
+version: 0.0.1-pre-alpha
+date-released: 2026-05-06
+
+authors:
+  - family-names: "Schwartz"
+    given-names: "Liran M."
+    affiliation: "Independent Researcher"
+
+abstract: >
+  LOITER-SIM is an open-source, bitwise-deterministic simulation engine for loitering
+  munitions and autonomous UAV swarms. It provides physics-grade 6-DOF rigid body dynamics,
+  Berger-Oliger adaptive mesh refinement, a first-class reinforcement learning API
+  (Gymnasium-compatible), and physics-based sensor simulation including radar (RCS-based),
+  EO/IR, INS/GPS, and electronic warfare effects. The engine is designed for three primary
+  use cases: training multi-agent reinforcement learning systems, evaluating human operator
+  performance under mass drone attack scenarios, and analyzing counter-UAS tactics in
+  GPS-denied, electronically contested environments.
+
+keywords:
+  - drone simulation
+  - multi-agent reinforcement learning
+  - loitering munitions
+  - UAV swarms
+  - counter-UAS
+  - adaptive mesh refinement
+  - deterministic simulation
+  - autonomous systems
+  - C++17
+  - Gymnasium
+
+license: GPL-3.0
+repository-code: https://github.com/LiranOG/LOITER-SIM
+
+preferred-citation:
+  type: software
+  title: "LOITER-SIM: A Deterministic Multi-Agent Simulation Engine for Autonomous UAV Swarms"
+  authors:
+    - family-names: "Schwartz"
+      given-names: "Liran M."
+  year: 2026
+  url: https://github.com/LiranOG/LOITER-SIM
+  license: GPL-3.0
+  version: 0.0.1-pre-alpha

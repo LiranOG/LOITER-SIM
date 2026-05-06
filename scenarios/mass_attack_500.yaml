@@ -1,0 +1,216 @@
+# LOITER-SIM Reference Scenario
+# Scenario: MASS_ATTACK_500
+# Description: 500 loitering munitions attacking a defended point target.
+#              Used as the primary performance benchmark and RL training baseline.
+# Status: Specification only — requires simulation engine (M6, Q4 2026)
+
+meta:
+  id: mass_attack_500
+  name: "Mass Attack — 500 Loitering Munitions vs. Point Defense"
+  version: "0.1"
+  description: >
+    500 loitering munitions launched from dispersed positions attempt to saturate
+    a point defense system protecting a high-value target. The defense consists of
+    one ground search radar, one fire control radar, and a point defense launcher.
+    Electronic warfare is active: 3 GPS jammers and 1 DRFM radar jammer are present.
+  tags: [benchmark, rl-training, counter-uas, ew, saturation-attack]
+  difficulty: hard
+  duration_s: 600.0
+  timestep_s: 0.01       # 100 Hz physics
+  seed: 42               # Change for randomized runs; deterministic for given seed
+
+# ─── Environment ──────────────────────────────────────────────────
+environment:
+  coordinate_frame: NED
+  origin:
+    latitude_deg: 32.0
+    longitude_deg: 35.0
+    altitude_msl_m: 200.0
+  bounds:
+    north_m: 50000.0
+    south_m: -10000.0
+    east_m: 40000.0
+    west_m: -40000.0
+    altitude_max_m: 5000.0
+
+  atmosphere:
+    model: ISA
+    surface_wind:
+      speed_m_s: 8.0
+      direction_deg: 270.0   # From west
+    turbulence:
+      model: dryden
+      intensity: light        # calm | light | moderate | severe
+
+  terrain:
+    model: flat              # flat | srtm | synthetic_hills
+    elevation_m: 0.0
+
+# ─── Threats ──────────────────────────────────────────────────────
+threats:
+
+  - id: swarm_alpha
+    count: 300
+    platform: loitering_munition_generic
+    spawn:
+      pattern: dispersed_box
+      center: [40000.0, 0.0, -500.0]    # NED [m]: 40 km north, 500 m AGL
+      spread_m: [5000.0, 8000.0, 200.0]
+      time_window_s: [0.0, 120.0]       # Spawn over first 2 minutes
+    objective:
+      type: strike
+      target_id: hvt_01
+    behavior:
+      type: reinforcement_learning       # Policy loaded from scenarios/policies/
+      policy: "swarm_alpha_ppo_v1"
+      fallback: boids_strike             # Fallback if no RL policy loaded
+
+  - id: swarm_bravo
+    count: 200
+    platform: loitering_munition_fast
+    spawn:
+      pattern: line
+      start: [35000.0, -15000.0, -800.0]
+      end:   [35000.0,  15000.0, -800.0]
+      time_window_s: [180.0, 300.0]     # Launch 3–5 minutes in
+    objective:
+      type: strike
+      target_id: hvt_01
+    behavior:
+      type: scripted
+      script: direct_bearing_attack
+
+# ─── Friendly Forces ──────────────────────────────────────────────
+friendlies:
+
+  - id: ground_search_radar_01
+    platform: ground_search_radar_generic
+    position: [0.0, 0.0, 0.0]
+    sensors:
+      - type: radar
+        params:
+          frequency_ghz: 2.9
+          peak_power_w: 800000
+          antenna_gain_dbi: 28.0
+          noise_figure_db: 3.5
+          bandwidth_mhz: 2.0
+          losses_db: 3.0
+          snr_threshold_db: 13.0
+          scan_rate_deg_s: 30.0
+          scan_sector_deg: 360.0
+
+  - id: fire_control_radar_01
+    platform: fire_control_radar_generic
+    position: [100.0, 0.0, 0.0]
+    sensors:
+      - type: radar
+        params:
+          frequency_ghz: 9.5
+          peak_power_w: 50000
+          antenna_gain_dbi: 34.0
+          noise_figure_db: 4.0
+          bandwidth_mhz: 5.0
+          losses_db: 3.0
+          snr_threshold_db: 13.0
+
+  - id: point_defense_launcher_01
+    platform: point_defense_launcher_generic
+    position: [50.0, 50.0, 0.0]
+    interceptors:
+      count: 48
+      platform: interceptor_generic
+      launch_rate_per_s: 2.0
+    behavior:
+      type: scripted
+      script: engage_closest_threat
+
+# ─── Electronic Warfare ───────────────────────────────────────────
+electronic_warfare:
+
+  - id: gps_jammer_01
+    type: gps_jammer
+    position: [30000.0, -5000.0, -200.0]
+    params:
+      eirp_dbw: 43.0
+      frequency_band: L1_L2
+      jam_radius_m: 15000.0
+
+  - id: gps_jammer_02
+    type: gps_jammer
+    position: [30000.0, 5000.0, -200.0]
+    params:
+      eirp_dbw: 43.0
+      frequency_band: L1_L2
+      jam_radius_m: 15000.0
+
+  - id: gps_jammer_03
+    type: gps_jammer
+    position: [35000.0, 0.0, -100.0]
+    params:
+      eirp_dbw: 40.0
+      frequency_band: L1
+      jam_radius_m: 8000.0
+
+  - id: drfm_jammer_01
+    type: drfm_jammer
+    position: [38000.0, 0.0, -300.0]
+    target_radar_id: fire_control_radar_01
+    params:
+      eirp_dbw: 50.0
+      false_range_offset_m: 2000.0
+      false_doppler_hz: 500.0
+
+# ─── Targets ──────────────────────────────────────────────────────
+targets:
+
+  - id: hvt_01
+    label: "High-Value Target Alpha"
+    position: [0.0, 0.0, 0.0]
+    radius_m: 50.0
+    destroyed_on_hit: true
+
+# ─── Termination Conditions ───────────────────────────────────────
+termination:
+  - condition: target_destroyed
+    target_id: hvt_01
+    outcome: attacker_win
+
+  - condition: all_threats_neutralized
+    outcome: defender_win
+
+  - condition: timeout
+    duration_s: 600.0
+    outcome: defender_win   # Surviving the 10-minute window is a defender win
+
+# ─── Reward Definition (RL) ───────────────────────────────────────
+reward:
+  attacker:
+    terminal:
+      target_destroyed: +100.0
+      self_destroyed: -1.0
+      timeout: -10.0
+    shaping:
+      distance_to_target:
+        weight: 0.01
+        type: negative_distance   # Reward decreasing distance
+
+  defender:
+    terminal:
+      target_destroyed: -100.0
+      all_threats_neutralized: +50.0
+      timeout: +20.0
+    shaping:
+      threats_neutralized_per_tick:
+        weight: 1.0
+
+# ─── Logging ──────────────────────────────────────────────────────
+logging:
+  hdf5_checkpoint_interval_ticks: 100
+  csv_telemetry: true
+  telemetry_fields:
+    - entity_id
+    - position_ned
+    - velocity_ned
+    - health
+    - gps_fix
+    - radar_detections_count

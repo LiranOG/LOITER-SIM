@@ -1,0 +1,118 @@
+# LOITER-SIM GitHub Issue Labels
+
+# ── Status ───────────────────────────────────────
+- name: "triage"
+  color: "e4e669"
+  description: "Needs initial review and categorization"
+
+- name: "confirmed"
+  color: "0075ca"
+  description: "Issue confirmed; ready for implementation"
+
+- name: "wontfix"
+  color: "ffffff"
+  description: "This will not be fixed or implemented"
+
+- name: "duplicate"
+  color: "cfd3d7"
+  description: "Duplicate of an existing issue"
+
+- name: "invalid"
+  color: "e4e669"
+  description: "Does not meet the project's contribution standards"
+
+# ── Type ─────────────────────────────────────────
+- name: "bug"
+  color: "d73a4a"
+  description: "Something isn't working correctly"
+
+- name: "enhancement"
+  color: "a2eeef"
+  description: "New feature or improvement"
+
+- name: "physics"
+  color: "7057ff"
+  description: "New or modified physical model or numerical method"
+
+- name: "performance"
+  color: "0e8a16"
+  description: "Performance improvement or regression"
+
+- name: "documentation"
+  color: "0075ca"
+  description: "Documentation improvements or corrections"
+
+- name: "ci"
+  color: "f9d0c4"
+  description: "CI/CD pipeline changes"
+
+- name: "security"
+  color: "d73a4a"
+  description: "Security-related issue (use private advisory for vulnerabilities)"
+
+# ── Domain ───────────────────────────────────────
+- name: "domain:aerodynamics"
+  color: "bfd4f2"
+  description: "Aerodynamics, 6-DOF dynamics, flight physics"
+
+- name: "domain:sensors"
+  color: "bfd4f2"
+  description: "Radar, EO/IR, INS/GPS sensor models"
+
+- name: "domain:ew"
+  color: "bfd4f2"
+  description: "Electronic warfare, jamming, spoofing"
+
+- name: "domain:swarm"
+  color: "bfd4f2"
+  description: "Multi-agent, swarm behavior, ECS"
+
+- name: "domain:rl-api"
+  color: "bfd4f2"
+  description: "Python bindings, Gymnasium API, RL interface"
+
+- name: "domain:amr"
+  color: "bfd4f2"
+  description: "Adaptive mesh refinement"
+
+- name: "domain:comms"
+  color: "bfd4f2"
+  description: "Mesh networking, C2 link, DIS/HLA"
+
+# ── Community ─────────────────────────────────────
+- name: "review"
+  color: "e99695"
+  description: "Request for domain expert review of a spec or design document"
+
+- name: "collaboration"
+  color: "e99695"
+  description: "Academic or research collaboration proposal"
+
+- name: "commercial-licensing"
+  color: "e99695"
+  description: "Commercial licensing inquiry"
+
+- name: "question"
+  color: "d876e3"
+  description: "Question about the project, architecture, or design"
+
+- name: "good first issue"
+  color: "7057ff"
+  description: "Good entry point for new contributors"
+
+- name: "help wanted"
+  color: "008672"
+  description: "Extra attention or expertise needed"
+
+# ── Priority ─────────────────────────────────────
+- name: "priority:critical"
+  color: "d73a4a"
+  description: "Blocks a milestone; must be resolved immediately"
+
+- name: "priority:high"
+  color: "e4e669"
+  description: "Important; should be resolved before next milestone"
+
+- name: "priority:low"
+  color: "ffffff"
+  description: "Nice to have; will be addressed when time permits"

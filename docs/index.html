@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LOITER-SIM — Deterministic multi-agent simulation engine for autonomous UAV swarms. Physics-grade, open-source, built for AI training and counter-UAS mission analysis." />
+  <meta property="og:title" content="LOITER-SIM" />
+  <meta property="og:description" content="The deterministic drone swarm engine for mission-critical AI training." />
+  <meta property="og:type" content="website" />
+  <title>LOITER-SIM — Deterministic Drone Swarm Simulation Engine</title>
+  <style>
+    :root {
+      --bg:        #0a0c10;
+      --surface:   #111318;
+      --border:    #1e2330;
+      --accent:    #3b82f6;
+      --accent2:   #10b981;
+      --warn:      #f59e0b;
+      --danger:    #ef4444;
+      --text:      #e2e8f0;
+      --muted:     #64748b;
+      --code-bg:   #0f172a;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,12,16,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo { font-family: var(--font-mono); font-size: 1.1rem; color: var(--accent); font-weight: 700; letter-spacing: 0.05em; }
+    .nav-links { display: flex; gap: 1.6rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.875rem; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: var(--accent); color: #fff; border: none;
+      padding: 0.45rem 1.1rem; border-radius: 6px; font-size: 0.85rem;
+      font-weight: 600; cursor: pointer; text-decoration: none; transition: opacity .2s;
+    }
+    .nav-cta:hover { opacity: 0.85; }
+
+    /* ── STATUS BANNER ── */
+    .status-banner {
+      background: linear-gradient(135deg, #1a1200 0%, #0f1a0a 100%);
+      border-bottom: 1px solid #2a2000;
+      padding: 0.75rem 2rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--warn);
+    }
+    .status-banner strong { color: #fbbf24; }
+    .status-banner a { color: #fbbf24; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 5rem 2rem 4rem;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(59,130,246,0.12);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: var(--accent);
+      padding: 0.3rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2.2rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--accent); color: #fff;
+      padding: 0.75rem 2rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: opacity .2s, transform .15s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.75rem 2rem; border-radius: 8px;
+      font-size: 0.95rem; font-weight: 600;
+      text-decoration: none; transition: border-color .2s, transform .15s;
+    }
+    .btn-secondary:hover { border-color: var(--accent); transform: translateY(-1px); }
+
+    .hero-tagline {
+      margin-top: 2.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── SECTION ── */
+    section { max-width: 1000px; margin: 0 auto; padding: 3.5rem 2rem; }
+    section + section { border-top: 1px solid var(--border); }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 1rem; }
+    p { color: #94a3b8; line-height: 1.7; margin-bottom: 0.9rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── GUARANTEES ── */
+    .guarantees {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .guarantee-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+    }
+    .guarantee-card .icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+    .guarantee-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text); }
+    .guarantee-card p { font-size: 0.875rem; color: var(--muted); margin: 0; }
+
+    /* ── MILESTONES ── */
+    .timeline { margin-top: 2rem; display: flex; flex-direction: column; gap: 0; }
+    .milestone {
+      display: grid;
+      grid-template-columns: 120px 24px 1fr;
+      gap: 0 1rem;
+      align-items: start;
+    }
+    .milestone:not(:last-child) .ms-line::after {
+      content: '';
+      display: block;
+      width: 2px;
+      height: 100%;
+      min-height: 2rem;
+      background: var(--border);
+      margin: 4px auto 0;
+    }
+    .ms-date { font-family: var(--font-mono); font-size: 0.78rem; color: var(--muted); padding-top: 2px; text-align: right; }
+    .ms-dot {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid var(--border);
+      background: var(--bg);
+      margin-top: 3px; flex-shrink: 0; position: relative; z-index: 1;
+    }
+    .ms-dot.done  { background: var(--accent2); border-color: var(--accent2); }
+    .ms-dot.active { background: var(--warn); border-color: var(--warn); }
+    .ms-dot.future { background: var(--bg); border-color: #2e3a50; }
+    .ms-dot.target { background: var(--accent); border-color: var(--accent); }
+    .ms-line { display: flex; flex-direction: column; align-items: center; }
+    .ms-content { padding-bottom: 1.75rem; }
+    .ms-title { font-weight: 700; font-size: 0.95rem; color: var(--text); margin-bottom: 0.2rem; }
+    .ms-desc  { font-size: 0.825rem; color: var(--muted); }
+    .ms-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-bottom: 0.35rem;
+    }
+    .badge-design   { background: rgba(59,130,246,0.12); color: var(--accent); border: 1px solid rgba(59,130,246,0.25); }
+    .badge-planned  { background: rgba(100,116,139,0.1); color: var(--muted);  border: 1px solid rgba(100,116,139,0.2); }
+    .badge-alpha    { background: rgba(245,158,11,0.12); color: var(--warn);  border: 1px solid rgba(245,158,11,0.25); }
+    .badge-target   { background: rgba(59,130,246,0.18); color: #7dd3fc;      border: 1px solid rgba(59,130,246,0.35); }
+
+    /* ── AUDIENCE CARDS ── */
+    .audience-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem; margin-top: 2rem;
+    }
+    .audience-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.5rem;
+    }
+    .audience-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .audience-card p  { font-size: 0.865rem; color: var(--muted); margin: 0; }
+
+    /* ── LICENSE TABLE ── */
+    .license-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; font-size: 0.875rem; }
+    .license-table th {
+      text-align: left; padding: 0.6rem 1rem;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      color: var(--muted); font-weight: 600; font-size: 0.78rem;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .license-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: #94a3b8; vertical-align: middle; }
+    .license-table tr:last-child td { border-bottom: none; }
+    .license-table tr:hover td { background: rgba(255,255,255,0.02); }
+    .tag-gpl        { display: inline-block; background: rgba(16,185,129,0.12); color: var(--accent2); border: 1px solid rgba(16,185,129,0.25); padding: 0.15rem 0.55rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem; }
+    .tag-commercial { display: inline-block; background: rgba(59,130,246,0.12); color: var(--accent); border: 1px solid rgba(59,130,246,0.25); padding: 0.15rem 0.55rem; border-radius: 4px; font-family: var(--font-mono); font-size: 0.72rem; }
+
+    /* ── CTA ── */
+    .cta-section {
+      text-align: center; padding: 4rem 2rem;
+      border-top: 1px solid var(--border);
+    }
+    .cta-section h2 { font-size: 2rem; margin-bottom: 0.75rem; }
+    .cta-section p  { color: var(--muted); margin-bottom: 2rem; font-size: 0.95rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .milestone { grid-template-columns: 90px 20px 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">LOITER-SIM</span>
+  <div class="nav-links">
+    <a href="WHY.html">Why</a>
+    <a href="FAQ.html">FAQ</a>
+    <a href="../ARCHITECTURE.md">Architecture</a>
+    <a href="../ROADMAP.md">Roadmap</a>
+    <a href="DESIGN_DECISIONS.html">Decisions</a>
+  </div>
+  <a class="nav-cta" href="https://github.com/LiranOG/LOITER-SIM">View on GitHub →</a>
+</nav>
+
+<!-- STATUS BANNER -->
+<div class="status-banner">
+  ⚠️ <strong>Pre-Alpha · Design Phase Only</strong> — No executable code yet.
+  First code commit targets <strong>Q4 2026</strong> (M1 — Foundation).
+  Public alpha targets <strong>Q3 2027</strong>.
+  v1.0 targets <strong>Q1 2028</strong>.
+  &nbsp;·&nbsp;
+  <a href="../ROADMAP.md">Full roadmap →</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Open-Source · Pre-Alpha · GPL v3</div>
+  <h1>The <span>Deterministic</span> Drone Swarm Engine</h1>
+  <p class="hero-sub">
+    A C++17 simulation engine for loitering munitions and autonomous UAV swarms.
+    Physics-grade accuracy. Bitwise-deterministic execution. 1000× real-time RL throughput.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="https://github.com/LiranOG/LOITER-SIM">GitHub Repository</a>
+    <a class="btn-secondary" href="WHY.html">Why This Exists</a>
+    <a class="btn-secondary" href="FAQ.html">FAQ</a>
+  </div>
+  <p class="hero-tagline">"Train your autonomous systems against 10,000 threats before the first one ever leaves the ground."</p>
+</div>
+
+<!-- GUARANTEES -->
+<section>
+  <p class="section-label">Core Guarantees</p>
+  <h2>Three Promises No Existing Simulator Makes</h2>
+  <p>Most open-source simulation environments fail defense research on at least one critical axis. LOITER-SIM is designed to succeed on all three simultaneously.</p>
+  <div class="guarantees">
+    <div class="guarantee-card">
+      <div class="icon">🔐</div>
+      <h3>Bitwise-Deterministic Execution</h3>
+      <p>Identical (scenario, seed) → identical bit-for-bit output. Every run. Any IEEE 754-compliant machine. Reproducible bugs. Reproducible research.</p>
+    </div>
+    <div class="guarantee-card">
+      <div class="icon">⚡</div>
+      <h3>1000× Real-Time Headless Throughput</h3>
+      <p>50,000 agents at 50 Hz on consumer hardware. Gymnasium-compatible Python API for RL at industrial training scale, not toy-environment scale.</p>
+    </div>
+    <div class="guarantee-card">
+      <div class="icon">📐</div>
+      <h3>Physics-Grade, Cited Specifications</h3>
+      <p>Every model traced to primary literature. No ad-hoc approximations. RCS-based radar. ISA atmosphere. 6-DOF RK4 dynamics. Verifiable before a line of code runs.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section>
+  <p class="section-label">Roadmap</p>
+  <h2>Nine Milestones · v1.0 Target: Q1 2028</h2>
+  <p>A public, detailed roadmap with technical exit criteria for every milestone. Stretch goal: Q4 2027 if all milestones complete on schedule.</p>
+
+  <div class="timeline">
+    <div class="milestone">
+      <div class="ms-date">2026-05</div>
+      <div class="ms-line"><div class="ms-dot done"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-design">Design Complete</div>
+        <div class="ms-title">Specifications Published</div>
+        <div class="ms-desc">Architecture, physics spec, sensor spec, design decisions, ADRs — all publicly available and open to expert review.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q4 2026</div>
+      <div class="ms-line"><div class="ms-dot active"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-alpha">M1 · First Code</div>
+        <div class="ms-title">Foundation</div>
+        <div class="ms-desc">Core ECS, 6-DOF dynamics, determinism framework, CI pipeline. Single agent in deterministic free flight.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q1 2027</div>
+      <div class="ms-line"><div class="ms-dot future"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-planned">M2</div>
+        <div class="ms-title">Terrain & Physics</div>
+        <div class="ms-desc">Berger-Oliger AMR solver, ISA atmosphere, aerodynamic lookup tables, terrain geometry and collision.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q2 2027</div>
+      <div class="ms-line"><div class="ms-dot future"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-planned">M3 · M4</div>
+        <div class="ms-title">Swarm Scale + Sensors & EW</div>
+        <div class="ms-desc">50,000-agent benchmark with AVX2 SIMD. Radar (RCS), EO/IR, INS/GPS, jamming, spoofing, DRFM.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q3 2027</div>
+      <div class="ms-line"><div class="ms-dot future"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-alpha">M5 · Public Alpha</div>
+        <div class="ms-title">RL Interface</div>
+        <div class="ms-desc">Python/Gymnasium API, headless batch execution (1000× real-time), pip-installable wheel. First externally usable release.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q3–Q4 2027</div>
+      <div class="ms-line"><div class="ms-dot future"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-planned">M6 · M7 · M8</div>
+        <div class="ms-title">Scenarios, C2, Human-in-the-Loop</div>
+        <div class="ms-desc">YAML scenario engine, DIS/HLA interoperability, mesh networking, VR/FPV operator interface, behavior trees.</div>
+      </div>
+    </div>
+    <div class="milestone">
+      <div class="ms-date">Q1 2028</div>
+      <div class="ms-line"><div class="ms-dot target"></div></div>
+      <div class="ms-content">
+        <div class="ms-badge badge-target">v1.0 Stable</div>
+        <div class="ms-title">Full Stable Release</div>
+        <div class="ms-desc">All M1–M9 exit criteria met. Community Edition (GPL v3) + commercial licensing infrastructure. Academic paper submitted.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IS IT FOR -->
+<section>
+  <p class="section-label">Audiences</p>
+  <h2>Built for Three Communities Simultaneously</h2>
+  <div class="audience-grid">
+    <div class="audience-card">
+      <h3>🧠 AI/RL Researchers</h3>
+      <p>The first physically grounded, bitwise-deterministic multi-agent RL environment for autonomous aerial systems. Gymnasium-native. Reproducible benchmarks. Peer-reviewable physics. Publish with confidence.</p>
+    </div>
+    <div class="audience-card">
+      <h3>🎖️ Military Operators</h3>
+      <p>Train against mass drone attacks before they happen. Exercise counter-UAS tactics, EW options, and GPS-denied operations in a physics-accurate environment with no real-world analog.</p>
+    </div>
+    <div class="audience-card">
+      <h3>🏗️ System Integrators</h3>
+      <p>A commercially licensable simulation core with clean DIS/HLA interoperability, zero rendering dependency, and zero copyleft obligation in the commercial tier. Embed without compromise.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LICENSING -->
+<section>
+  <p class="section-label">Licensing</p>
+  <h2>Open by Default · Commercial When You Need It</h2>
+  <p>LOITER-SIM uses a dual-license model — the same approach used by MySQL, Qt, and MariaDB. The Community Edition is fully open under GPL v3. The Commercial Edition is available for organizations that cannot comply with the GPL's copyleft provisions (proprietary, classified, or export-controlled deployments).</p>
+  <table class="license-table">
+    <thead>
+      <tr>
+        <th>Edition</th>
+        <th>License</th>
+        <th>Max Agents</th>
+        <th>Key Extras</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Community</strong></td>
+        <td><span class="tag-gpl">GPL v3</span></td>
+        <td>Up to 500</td>
+        <td>Full engine · Basic sensors · RL API · Open-source modifications required</td>
+      </tr>
+      <tr>
+        <td><strong>Commercial</strong></td>
+        <td><span class="tag-commercial">Proprietary</span></td>
+        <td>Unlimited</td>
+        <td>Advanced threat models · GPU acceleration · DIS/HLA · Classified deployment · No copyleft obligation</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="margin-top:1rem; font-size:0.85rem;">Commercial licensing inquiries: open a GitHub Issue tagged <code>commercial-licensing</code>.</p>
+</section>
+
+<!-- READINGS -->
+<section>
+  <p class="section-label">Start Here</p>
+  <h2>Reading Order for New Visitors</h2>
+  <p>If you have <strong>10 minutes</strong>: read <a href="WHY.html" style="color:var(--accent)">WHY.md</a> (the problem statement), then <a href="FAQ.html" style="color:var(--accent)">FAQ.md</a> (direct answers, including "is this vaporware?"), then the <a href="../ROADMAP.md" style="color:var(--accent)">Roadmap</a>.</p>
+  <p>If you have <strong>an hour</strong> and a technical background: add <a href="../ARCHITECTURE.md" style="color:var(--accent)">ARCHITECTURE.md</a>, <a href="../specs/PHYSICS_SPEC.md" style="color:var(--accent)">PHYSICS_SPEC.md</a>, <a href="../specs/SENSOR_SPEC.md" style="color:var(--accent)">SENSOR_SPEC.md</a>, and <a href="DESIGN_DECISIONS.html" style="color:var(--accent)">DESIGN_DECISIONS.md</a>.</p>
+  <p>If you are a <strong>domain expert</strong> in aerodynamics, radar, EW, INS/GPS, or military simulation standards: open a GitHub Issue tagged <code>[review]</code>. Rigorous critique of the specifications is the highest-value contribution right now.</p>
+</section>
+
+<!-- CTA -->
+<div class="cta-section">
+  <h2>The Specifications Are Live.</h2>
+  <p>Read them. Critique them. Help make them correct before the code is written.</p>
+  <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+    <a class="btn-primary" href="https://github.com/LiranOG/LOITER-SIM">GitHub Repository →</a>
+    <a class="btn-secondary" href="https://github.com/LiranOG/LOITER-SIM/issues/new?labels=review">Open a Review Issue</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <strong>LOITER-SIM</strong> &nbsp;·&nbsp;
+    Built by <a href="https://github.com/LiranOG">Liran M. Schwartz</a> &nbsp;·&nbsp;
+    Licensed under <a href="https://www.gnu.org/licenses/gpl-3.0">GPL v3</a> &nbsp;·&nbsp;
+    <a href="https://github.com/LiranOG/LOITER-SIM">GitHub</a>
+  </p>
+  <p style="margin-top:0.4rem; font-size:0.75rem; color:#374151;">
+    Pre-alpha · No executable code yet · First code target Q4 2026 · v1.0 target Q1 2028
+  </p>
+</footer>
+
+</body>
+</html>

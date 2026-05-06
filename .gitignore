@@ -1,0 +1,104 @@
+# ─────────────────────────────────────────────────────────────────
+# LOITER-SIM .gitignore
+# ─────────────────────────────────────────────────────────────────
+
+# Build directories
+build/
+build-*/
+dist/
+out/
+install/
+
+# CMake artifacts
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+CTestTestfile.cmake
+_CPack_Packages/
+*.cmake
+!cmake/dependencies.cmake
+
+# Compiled binaries
+*.o
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.pyd
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg
+*.egg-info/
+dist/
+.eggs/
+*.whl
+.venv/
+venv/
+env/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+*.suo
+*.user
+*.sln.docstates
+
+# clangd / LSP
+.clangd/
+compile_commands.json
+
+# Sanitizer / profiling outputs
+*.asan
+*.ubsan
+*.prof
+gmon.out
+perf.data
+perf.data.old
+callgrind.out.*
+massif.out.*
+
+# Test outputs
+*.xml
+test_detail.xml
+Testing/
+
+# HDF5 data files (simulation outputs — not committed)
+*.h5
+*.hdf5
+!specs/*.h5     # Allow spec reference datasets
+
+# Scenario output files
+*.csv
+*.replay
+*.checkpoint
+
+# Coverage
+*.gcno
+*.gcda
+*.gcov
+coverage/
+lcov.info
+
+# Packaging
+*.tar.gz
+*.zip
+*.deb
+*.rpm
+
+# Secrets and keys — NEVER commit these
+*.pem
+*.key
+*.p12
+.env
+.env.*
+secrets/

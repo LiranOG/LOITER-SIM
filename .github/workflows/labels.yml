@@ -1,0 +1,24 @@
+name: Sync GitHub Labels
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/labels.yml'
+    branches: [main]
+
+jobs:
+  sync-labels:
+    name: Sync Labels
+    runs-on: ubuntu-24.04
+    permissions:
+      issues: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync labels
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          token: ${{ secrets.GITHUB_TOKEN }}

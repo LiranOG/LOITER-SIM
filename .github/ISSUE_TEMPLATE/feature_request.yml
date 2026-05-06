@@ -1,0 +1,104 @@
+name: Feature Request
+description: Propose a new capability or improvement for LOITER-SIM
+title: "[FEAT] "
+labels: ["enhancement", "triage"]
+assignees: ["LiranOG"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for proposing a feature. Strong feature requests include a concrete use case, 
+        an explanation of why existing functionality is insufficient, and — for physics changes — 
+        a literature reference.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Feature Summary
+      description: One paragraph describing what you want to add or change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation & Use Case
+      description: |
+        Who benefits from this feature, and how?
+        What specific scenario, experiment, or mission analysis does this enable?
+    validations:
+      required: true
+
+  - type: textarea
+    id: existing
+    attributes:
+      label: Why Is Existing Functionality Insufficient?
+      description: Explain what is currently missing or inadequate.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - "Physics model (new or improved)"
+        - "Sensor simulation"
+        - "Electronic warfare"
+        - "Swarm behavior / agent AI"
+        - "Python / RL API"
+        - "Scenario definition (YAML)"
+        - "Performance / scalability"
+        - "Persistence / replay / logging"
+        - "Visualization / rendering"
+        - "Interoperability (DIS/HLA)"
+        - "Build system / tooling"
+        - "Documentation"
+        - "Other"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed_design
+    attributes:
+      label: Proposed Design (Optional)
+      description: |
+        If you have a concrete proposal, describe it here.
+        For physics models: include the governing equations and cite the source.
+        For APIs: include a sketch of the interface.
+      placeholder: |
+        **Physics reference:**
+        Author, *Title*, Year, Equation X.Y
+
+        **Proposed API:**
+        ```python
+        world.set_weather(wind_speed_m_s=10.0, turbulence_intensity=0.1)
+        ```
+
+  - type: dropdown
+    id: roadmap
+    attributes:
+      label: Roadmap Alignment
+      description: Does this feature appear in the existing ROADMAP.md?
+      options:
+        - "Yes — it is on the roadmap"
+        - "No — this is a new addition"
+        - "Partially — extends a planned feature"
+        - "I have not checked"
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: What other approaches did you consider, and why did you reject them?
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and this is not a duplicate
+          required: true
+        - label: For physics changes, I have identified at least one peer-reviewed source
+          required: false

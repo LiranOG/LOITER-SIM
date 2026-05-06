@@ -1,0 +1,265 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CMAKE_VERSION: "3.28.0"
+  BUILD_TYPE: Release
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────
+  # Job 1: Build & Unit Tests (Linux, GCC + Clang)
+  # ─────────────────────────────────────────────────────────────────
+  build-and-test:
+    name: Build & Test (${{ matrix.os }}, ${{ matrix.compiler }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-24.04
+            compiler: gcc
+            cc: gcc-13
+            cxx: g++-13
+          - os: ubuntu-24.04
+            compiler: clang
+            cc: clang-17
+            cxx: clang++-17
+          - os: ubuntu-22.04
+            compiler: gcc
+            cc: gcc-12
+            cxx: g++-12
+
+    env:
+      CC: ${{ matrix.cc }}
+      CXX: ${{ matrix.cxx }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y \
+            ${{ matrix.cc }} \
+            cmake ninja-build \
+            libhdf5-dev libyaml-cpp-dev libeigen3-dev \
+            python3-dev python3-pip
+
+      - name: Cache CMake build
+        uses: actions/cache@v4
+        with:
+          path: build
+          key: ${{ matrix.os }}-${{ matrix.compiler }}-cmake-${{ hashFiles('CMakeLists.txt', 'cmake/**') }}
+          restore-keys: |
+            ${{ matrix.os }}-${{ matrix.compiler }}-cmake-
+
+      - name: Configure CMake
+        run: |
+          cmake -B build \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} \
+            -DCMAKE_C_COMPILER=${{ matrix.cc }} \
+            -DCMAKE_CXX_COMPILER=${{ matrix.cxx }} \
+            -DLOITER_SIM_BUILD_TESTS=ON \
+            -DLOITER_SIM_BUILD_BENCHMARKS=OFF \
+            -DLOITER_SIM_BUILD_PYTHON=OFF
+
+      - name: Build
+        run: cmake --build build --parallel $(nproc)
+
+      - name: Run unit tests
+        run: ctest --test-dir build --output-on-failure --parallel $(nproc)
+
+  # ─────────────────────────────────────────────────────────────────
+  # Job 2: Sanitizer Build (ASan + UBSan)
+  # ─────────────────────────────────────────────────────────────────
+  sanitizers:
+    name: Sanitizers (ASan + UBSan)
+    runs-on: ubuntu-24.04
+    env:
+      CC: clang-17
+      CXX: clang++-17
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-17 cmake ninja-build \
+            libhdf5-dev libyaml-cpp-dev libeigen3-dev
+
+      - name: Configure (Debug + Sanitizers)
+        run: |
+          cmake -B build-san \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_COMPILER=clang-17 \
+            -DCMAKE_CXX_COMPILER=clang++-17 \
+            -DLOITER_SIM_BUILD_TESTS=ON \
+            -DLOITER_SIM_ENABLE_ASAN=ON \
+            -DLOITER_SIM_ENABLE_UBSAN=ON
+
+      - name: Build
+        run: cmake --build build-san --parallel $(nproc)
+
+      - name: Run tests under sanitizers
+        env:
+          ASAN_OPTIONS: "detect_leaks=1:abort_on_error=1"
+          UBSAN_OPTIONS: "print_stacktrace=1:abort_on_error=1"
+        run: ctest --test-dir build-san --output-on-failure
+
+  # ─────────────────────────────────────────────────────────────────
+  # Job 3: Determinism Regression
+  # ─────────────────────────────────────────────────────────────────
+  determinism:
+    name: Determinism Regression
+    runs-on: ubuntu-24.04
+    needs: build-and-test
+    env:
+      CC: gcc-13
+      CXX: g++-13
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-13 g++-13 cmake ninja-build \
+            libhdf5-dev libyaml-cpp-dev libeigen3-dev
+
+      - name: Configure
+        run: |
+          cmake -B build-det \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLOITER_SIM_BUILD_TESTS=ON \
+            -DLOITER_SIM_DETERMINISM_TESTS=ON
+
+      - name: Build
+        run: cmake --build build-det --parallel $(nproc)
+
+      - name: Run determinism regression
+        run: |
+          ctest --test-dir build-det \
+            --output-on-failure \
+            -R "Determinism"
+
+  # ─────────────────────────────────────────────────────────────────
+  # Job 4: Formatting & Lint
+  # ─────────────────────────────────────────────────────────────────
+  format-lint:
+    name: Format & Lint
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y clang-format-17 clang-tidy-17 \
+            cmake ninja-build libhdf5-dev libyaml-cpp-dev libeigen3-dev
+
+      - name: Check formatting
+        run: |
+          find core/ bindings/ tests/ -name '*.cpp' -o -name '*.hpp' | \
+          xargs clang-format-17 --dry-run --Werror
+
+      - name: Generate compile_commands.json for clang-tidy
+        run: |
+          cmake -B build-tidy \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
+            -DLOITER_SIM_BUILD_TESTS=ON
+
+      - name: Run clang-tidy
+        run: |
+          find core/ -name '*.cpp' | \
+          xargs clang-tidy-17 \
+            -p build-tidy \
+            --warnings-as-errors='*' \
+            2>&1 | tee clang-tidy-report.txt
+          if grep -q "error:" clang-tidy-report.txt; then
+            echo "clang-tidy found errors"
+            exit 1
+          fi
+
+  # ─────────────────────────────────────────────────────────────────
+  # Job 5: Python Bindings
+  # ─────────────────────────────────────────────────────────────────
+  python-bindings:
+    name: Python Bindings (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y gcc-13 g++-13 cmake ninja-build \
+            libhdf5-dev libyaml-cpp-dev libeigen3-dev
+
+      - name: Install Python test dependencies
+        run: pip install pytest numpy gymnasium
+
+      - name: Configure & build with Python bindings
+        env:
+          CC: gcc-13
+          CXX: g++-13
+        run: |
+          cmake -B build-py \
+            -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DLOITER_SIM_BUILD_PYTHON=ON \
+            -DLOITER_SIM_BUILD_TESTS=ON \
+            -DPython_EXECUTABLE=$(which python)
+          cmake --build build-py --parallel $(nproc)
+
+      - name: Run Python binding tests
+        run: pytest tests/python/ -v
+
+  # ─────────────────────────────────────────────────────────────────
+  # Summary gate — PRs must pass all jobs
+  # ─────────────────────────────────────────────────────────────────
+  ci-gate:
+    name: CI Gate
+    runs-on: ubuntu-24.04
+    needs: [build-and-test, sanitizers, determinism, format-lint, python-bindings]
+    if: always()
+    steps:
+      - name: Check all jobs passed
+        run: |
+          if [[ "${{ contains(needs.*.result, 'failure') }}" == "true" ]]; then
+            echo "One or more CI jobs failed"
+            exit 1
+          fi
+          echo "All CI jobs passed"
