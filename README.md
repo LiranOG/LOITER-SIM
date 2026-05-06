@@ -22,6 +22,15 @@ The engine delivers three guarantees that no existing open-source simulator prov
 
 ---
 
+## 🌐 Project Website
+
+The full project landing page — including the milestone timeline, 
+audience overview, and licensing details — is available at:
+
+**[liranog.github.io/LOITER-SIM](https://liranog.github.io/LOITER-SIM)**
+
+---
+
 ## 🚦 Status — Pre-Alpha · Design Phase · v1.0 Target: Q1 2028
 
 > **No executable simulation code is published yet.** This repository currently contains the architecture specification, physics specification, design rationale, and engineering roadmap. Implementation of the core engine begins in Q4 2026.
