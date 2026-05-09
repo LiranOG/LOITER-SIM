@@ -10,7 +10,7 @@ Transparency about governance is especially important for a project operating in
 
 ## Current Phase: Founding Architect
 
-**Phase applies through: v1.0 release (target Q1 2028)**
+**Phase applies through: v1.0 release (target Q3 2028)**
 
 During pre-alpha and alpha, decision-making authority rests with the founding architect (**Liran M. Schwartz** — GitHub: [LiranOG](https://github.com/LiranOG)). This is not because community input is unwelcome — it is — but because architectural decisions during the foundation phase have long-lasting consequences that require a single point of accountability.
 
