@@ -46,11 +46,11 @@ This is a deliberate choice, not a delay. The design must be correct before the 
 
 ### When will there be something to run?
 
-The first executable milestone (M1 — Foundation) targets **Q4 2026**: a single simulated agent in deterministic free flight, with a CI pipeline and full test infrastructure committed and visible.
+The first executable milestone (M1 — Foundation) targets **Q2 2027**: a single simulated agent in deterministic free flight, with a CI pipeline and full test infrastructure committed and visible.
 
-The first externally-usable public alpha (M5 — RL Interface) targets **Q3 2027**.
+The first externally-usable public alpha (M5 — RL Interface) targets **Q4 2027**.
 
-The v1.0 stable release targets **Q1 2028**, with Q4 2027 as a stretch goal.
+The v1.0 stable release targets **Q3 2028**, with Q2 2028 as a stretch goal.
 
 See [ROADMAP.md](../ROADMAP.md) for the full milestone breakdown with technical exit criteria for each.
 
@@ -85,7 +85,7 @@ What remains a claim until proven:
 - All milestone dates.
 - The eventual quality of the implementation.
 
-A reasonable observer should treat the documents as evidence and treat the targets as targets. If, by Q1 2027, this repository still has no committed code, treat the project as vaporware at that point. Until then, judge it by what is currently visible: the rigor, internal consistency, and citation quality of the published specifications.
+A reasonable observer should treat the documents as evidence and treat the targets as targets. If, by Q2 2027, this repository still has no committed code, treat the project as vaporware at that point. Until then, judge it by what is currently visible: the rigor, internal consistency, and citation quality of the published specifications.
 
 ### How do I know the timelines are realistic?
 
@@ -144,7 +144,7 @@ The v1.0 performance targets are:
 | 10× real-time | 5,000 |
 | 1000× real-time (headless RL batch) | 500 |
 
-These targets will be validated by the M3 benchmark suite (Q2 2027). They are based on memory-budget analysis (~464 bytes per agent → ~22 MB for 50k agents, well within L3 cache on modern CPUs) and SIMD-vectorization estimates of the physics hot loop. See [ARCHITECTURE.md §12](../ARCHITECTURE.md#12-performance-architecture).
+These targets will be validated by the M3 benchmark suite (Q3 2027). They are based on memory-budget analysis (~464 bytes per agent → ~22 MB for 50k agents, well within L3 cache on modern CPUs) and SIMD-vectorization estimates of the physics hot loop. See [ARCHITECTURE.md §12](../ARCHITECTURE.md#12-performance-architecture).
 
 ### Does it support GPU acceleration?
 
@@ -208,7 +208,7 @@ Read [CONTRIBUTING.md](../CONTRIBUTING.md). At the current pre-alpha stage, the 
 - **Architecture critique** — especially determinism, ECS design, AMR
 - **Domain expertise** — military simulation standards (DIS/HLA, STANAG)
 
-When core development begins (Q4 2026), software contributions will be accepted according to the process in CONTRIBUTING.md.
+When core development begins (Q2 2027), software contributions will be accepted according to the process in CONTRIBUTING.md.
 
 ### I am a domain expert in [aerodynamics / radar / EW / military simulation]. How do I help?
 
