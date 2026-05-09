@@ -91,7 +91,7 @@ No simulator today allows a human operator to practice:
 - Coordinating with autonomous wingmen during communications degradation
 - Operating in fully GPS-denied environments with realistic INS drift
 
-LOITER-SIM's planned human-in-the-loop interface (M8, Q4 2027) directly addresses this training deficit.
+LOITER-SIM's planned human-in-the-loop interface (M8, Q2 2028) directly addresses this training deficit.
 
 ### System Integrators and Prime Contractors
 
@@ -121,7 +121,7 @@ The analogy is exact. Pilots train in flight simulators before flying jets. Surg
 
 ## Timeline Commitment
 
-LOITER-SIM is a long-term project, not a sprint. The v1.0 target of **Q1 2028** (with Q4 2027 as a stretch goal) reflects:
+LOITER-SIM is a long-term project, not a sprint. The v1.0 target of **Q3 2028** (with Q2 2028 as a stretch goal) reflects:
 
 - The depth of the physics modeling required for credible simulation
 - The time needed to build, validate, and document each subsystem correctly
