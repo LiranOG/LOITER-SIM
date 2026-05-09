@@ -40,7 +40,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
                 (Q4 2027 — stretch goal if M1–M8 finish ahead of plan)
 ```
 
-> **Honest assessment:** This timeline reflects realistic effort estimates for a solo project of this scope. Roughly 14 months of engineering work after M1 begins. Earlier estimates (Q4 2027) are kept as a stretch target if architectural decisions hold up perfectly and no major scope changes occur. If reality forces compromise, scope will be cut before quality. v1.1 / v1.2 can extend functionality post-release.
+> **Honest assessment:** This timeline reflects realistic effort estimates for a solo project of this scope. Roughly 14 months of engineering work after M1 begins. Earlier estimates (Q2 2028) are kept as a stretch target if architectural decisions hold up perfectly and no major scope changes occur. If reality forces compromise, scope will be cut before quality. v1.1 / v1.2 can extend functionality post-release.
 
 ---
 
