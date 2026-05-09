@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: >
   If you use LOITER-SIM in your research, please cite it using the metadata in this file.
-  A formal academic paper is planned for submission concurrent with the v1.0 release (Q1 2028).
+  A formal academic paper is planned for submission concurrent with the v1.0 release (Q3 2028).
 
 title: "LOITER-SIM: A Deterministic Multi-Agent Simulation Engine for Autonomous UAV Swarms"
 version: 0.0.1-pre-alpha
