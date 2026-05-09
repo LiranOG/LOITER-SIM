@@ -29,7 +29,7 @@ All contributors are expected to adhere to the [Code of Conduct](./CODE_OF_CONDU
 
 ## Project Status
 
-LOITER-SIM is in **pre-alpha design phase**. No executable code exists yet — implementation begins in Q4 2026 (M1). Contributions at this stage are most valuable in the following areas:
+LOITER-SIM is in **pre-alpha design phase**. No executable code exists yet — implementation begins in Q2 2027 (M1). Contributions at this stage are most valuable in the following areas:
 
 - Physics specification review and critique (`specs/`)
 - Architecture design feedback (open an issue)
@@ -80,7 +80,7 @@ If you are a subject-matter expert in aerodynamics, radar physics, electronic wa
 | clang-format | 17+ | Code formatting |
 | clang-tidy | 17+ | Static analysis |
 
-### Build (when available, target M1 Q4 2026)
+### Build (when available, target M1 Q2 2027)
 
 ```bash
 git clone https://github.com/LiranOG/LOITER-SIM.git
