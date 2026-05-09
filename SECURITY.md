@@ -10,7 +10,7 @@ LOITER-SIM is currently in pre-alpha (no executable code released). Security rep
 | Future tagged releases | ✅ |
 | Older commits / abandoned branches | ❌ |
 
-Once versioned releases are published (target: 0.1.0-alpha in Q4 2026), this table will reflect the currently supported release line.
+Once versioned releases are published (target: 0.1.0-alpha in Q2 2027), this table will reflect the currently supported release line.
 
 ---
 
