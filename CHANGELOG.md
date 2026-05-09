@@ -52,21 +52,21 @@ Subsequent releases will follow Semantic Versioning. The first release with exec
 
 ---
 
-## [0.1.0-alpha] — Target: Q4 2026
+## [0.1.0-alpha] — Target: Q2 2027
 
 *To be populated when M1 (Foundation) milestone is reached. Will include the core ECS, 6-DOF dynamics, determinism framework, and CI infrastructure.*
 
 ---
 
-## [0.5.0-alpha] — Target: Q3 2027
+## [0.5.0-alpha] — Target: Q1 2028
 
 *Public alpha milestone (M5). Will include the Python RL API, Gymnasium compatibility, and headless batch execution. First version installable via pip.*
 
 ---
 
-## [1.0.0] — Target: Q1 2028
+## [1.0.0] — Target: Q3 2028
 
-*Stable release. All M1–M9 exit criteria met. Q4 2027 is a stretch goal if all preceding milestones complete on time.*
+*Stable release. All M1–M9 exit criteria met. Q2 2028 is a stretch goal if all preceding milestones complete on time.*
 
 ---
 
