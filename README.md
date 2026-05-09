@@ -22,15 +22,15 @@ The engine delivers three guarantees that no existing open-source simulator prov
 
 ---
 
-## 🚦 Status — Pre-Alpha · Design Phase · v1.0 Target: Q1 2028
+## 🚦 Status — Pre-Alpha · Design Phase · v1.0 Target: Q3 2028
 
-> **No executable simulation code is published yet.** This repository currently contains the architecture specification, physics specification, design rationale, and engineering roadmap. Implementation of the core engine begins in Q4 2026.
+> **No executable simulation code is published yet.** This repository currently contains the architecture specification, physics specification, design rationale, and engineering roadmap. Implementation of the core engine begins in Q1 2027.
 
 LOITER-SIM is the formal product of an extended period of design thinking around high-performance simulation engineering. The architectural patterns and physics models documented here draw on the author's prior work in numerical simulation; the decision to crystallize that thinking into a dedicated open-source project — and to publish the design before writing the code — was made in early 2026.
 
 This is intentional. A simulator built on a flawed architecture is worse than no simulator: it produces incorrect results that mislead the researchers and operators who rely on it. The architecture must be public, reviewable, and open to expert critique **before** implementation begins. The specifications you see in this repository are the first deliverable.
 
-The first executable milestone — a single agent in deterministic free flight, with a complete CI pipeline and test infrastructure — targets **Q4 2026**. The first externally-usable public alpha (with the Python RL API) targets **Q3 2027**. The stable v1.0 release targets **Q1 2028** (with Q4 2027 as a stretch goal). See [ROADMAP.md](./ROADMAP.md) for the full milestone breakdown.
+The first executable milestone — a single agent in deterministic free flight, with a complete CI pipeline and test infrastructure — targets **Q2 2027**. The first externally-usable public alpha (with the Python RL API) targets **Q3 2027**. The stable v1.0 release targets **Q3 2028** (with Q2 2028 as a stretch goal). See [ROADMAP.md](./ROADMAP.md) for the full milestone breakdown.
 
 ---
 
@@ -42,7 +42,7 @@ Three honest reasons:
 2. **The specifications represent a methodological choice, not elapsed time.** This is a docs-first project by design. The author has chosen to publish the architecture before the implementation precisely because the credibility of a simulator depends on the verifiability of its physics — and that verifiability begins with publishing the equations and citations openly.
 3. **The author is a solo architect, not a funded team.** Open-source defense-adjacent simulation work at this scope from a single contributor will move deliberately. The Q1 2028 v1.0 target reflects realistic effort estimates for the work involved. Implementation begins immediately, with public commits visible from day one of M1.
 
-If, by Q1 2027, this repository still has no committed code, the project is fairly classified as vaporware and reasonable observers should treat it as such. Until then, judge the project by the rigor and correctness of the documents you can read today.
+If, by Q2 2027, this repository still has no committed code, the project is fairly classified as vaporware and reasonable observers should treat it as such. Until then, judge the project by the rigor and correctness of the documents you can read today.
 
 ---
 
@@ -50,17 +50,17 @@ If, by Q1 2027, this repository still has no committed code, the project is fair
 
 | Capability | Status | Target | Description |
 |------------|--------|--------|-------------|
-| **6-DOF rigid body dynamics** | 📐 Spec complete | Q4 2026 | Quaternion-based flight model, Euler-Newton integration (RK4), AoA-dependent aerodynamics, configurable propulsion |
-| **Bitwise-deterministic execution** | 📐 Spec complete | Q4 2026 | Identical seed → identical floating-point result, every run, on any IEEE 754-compliant platform |4
-| **Adaptive Mesh Refinement** | 📐 Spec complete | Q1 2027 | Custom Berger-Oliger AMR engine — high resolution only where it matters |
-| **Multi-agent swarm scaling** | 📅 Planned | Q2 2027 | ECS architecture targeting 50,000+ simultaneous agents on consumer hardware |
-| **Physics-based sensor simulation** | 📅 Planned | Q2 2027 | Radar (RCS-based), EO/IR (FoV raycasting), INS/GPS with configurable jamming and spoofing |
-| **YAML scenario definition** | 📅 Planned | Q3 2027 | Complex missions described entirely in YAML — no recompilation |
-| **Python RL API (Gymnasium)** | 📅 Planned | Q3 2027 | `step()` interface for PyTorch/TensorFlow; headless batch execution up to 1000× real-time |
-| **Dynamic mesh networking** | 📅 Planned | Q4 2027 | Realistic packet loss, latency, and range constraints for inter-drone and C2 links |
-| **DIS / HLA interoperability** | 📅 Planned | Q4 2027 | Connect to existing C4I systems and multi-player tactical trainers |
-| **Human-in-the-loop VR/FPV** | 📅 Planned | Q4 2027 | Point-and-fly interface with behavior trees for supervised autonomy |
-| **v1.0 Stable Release** | 🎯 Target | **Q1 2028** | Full engine, commercial licensing infrastructure, complete documentation |
+| **6-DOF rigid body dynamics** | 📐 Spec complete | Q2 2027 | Quaternion-based flight model, Euler-Newton integration (RK4), AoA-dependent aerodynamics, configurable propulsion |
+| **Bitwise-deterministic execution** | 📐 Spec complete | Q2 2027 | Identical seed → identical floating-point result, every run, on any IEEE 754-compliant platform |4
+| **Adaptive Mesh Refinement** | 📐 Spec complete | Q2 2027 | Custom Berger-Oliger AMR engine — high resolution only where it matters |
+| **Multi-agent swarm scaling** | 📅 Planned | Q3 2027 | ECS architecture targeting 50,000+ simultaneous agents on consumer hardware |
+| **Physics-based sensor simulation** | 📅 Planned | Q3 2027 | Radar (RCS-based), EO/IR (FoV raycasting), INS/GPS with configurable jamming and spoofing |
+| **YAML scenario definition** | 📅 Planned | Q4 2027 | Complex missions described entirely in YAML — no recompilation |
+| **Python RL API (Gymnasium)** | 📅 Planned | Q4 2027 | `step()` interface for PyTorch/TensorFlow; headless batch execution up to 1000× real-time |
+| **Dynamic mesh networking** | 📅 Planned | Q1 2028 | Realistic packet loss, latency, and range constraints for inter-drone and C2 links |
+| **DIS / HLA interoperability** | 📅 Planned | Q2 2028 | Connect to existing C4I systems and multi-player tactical trainers |
+| **Human-in-the-loop VR/FPV** | 📅 Planned | Q2 2028 | Point-and-fly interface with behavior trees for supervised autonomy |
+| **v1.0 Stable Release** | 🎯 Target | **Q3 2028** | Full engine, commercial licensing infrastructure, complete documentation |
 
 ---
 
@@ -115,7 +115,7 @@ If you have an hour and a technical background:
 
 LOITER-SIM welcomes contributions, particularly from domain experts. At the current pre-alpha stage, **the most valuable contribution is rigorous critique of the specifications** — open a GitHub Issue tagged `[review]` if you have expertise in aerodynamics, radar, electronic warfare, INS/GPS, multi-agent RL, or military simulation standards.
 
-When core development begins (Q4 2026), code contributions will be accepted under the process documented in [CONTRIBUTING.md](./CONTRIBUTING.md). All contributions must follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
+When core development begins (Q2 2027), code contributions will be accepted under the process documented in [CONTRIBUTING.md](./CONTRIBUTING.md). All contributions must follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ---
 
