@@ -1,6 +1,6 @@
 # LOITER-SIM Roadmap
 
-> **Target Release: v1.0 — Q1 2028** (with Q4 2027 as a stretch goal)
+> **Target Release: v1.0 — Q3 2028** (with Q2 2028 as a stretch goal)
 
 This document is the authoritative public roadmap for LOITER-SIM. It reflects current planning and will be updated as the project progresses. All dates are *targets*, not commitments — slips will be communicated openly via this document.
 
@@ -9,34 +9,34 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 ## Milestone Overview
 
 ```
-2026 Q4  ──┬── M1: Foundation
+2027 Q2  ──┬── M1: Foundation
            │   Core ECS, 6-DOF dynamics, determinism framework, CI pipeline
            │
-2027 Q1  ──┼── M2: Terrain & Physics
+2027 Q2  ──┼── M2: Terrain & Physics
            │   AMR solver, aerodynamics, ISA atmosphere
            │
-2027 Q2  ──┼── M3: Swarm Scale
+2027 Q3  ──┼── M3: Swarm Scale
            │   50,000-agent benchmark, SIMD optimization
            │
-2027 Q2  ──┼── M4: Sensors & EW
+2027 Q3  ──┼── M4: Sensors & EW
            │   Radar, EO/IR, INS/GPS, jamming/spoofing
            │
-2027 Q3  ──┼── M5: RL Interface (Public Alpha)
+2027 Q4  ──┼── M5: RL Interface (Public Alpha)
            │   Python bindings, Gymnasium API, batch execution
            │
-2027 Q3  ──┼── M6: Scenario Engine
+2027 Q4  ──┼── M6: Scenario Engine
            │   YAML scenarios, HDF5 persistence, replay
            │
-2027 Q4  ──┼── M7: Communications & C2
+2027 Q1  ──┼── M7: Communications & C2
            │   Mesh networking, DIS/HLA interoperability
            │
-2027 Q4  ──┼── M8: Human-in-the-Loop
+2027 Q2  ──┼── M8: Human-in-the-Loop
            │   VR/FPV interface, behavior trees, operator tooling
            │
-2028 Q1  ──┼── M9: Hardening & Certification
+2028 Q2  ──┼── M9: Hardening & Certification
            │   Full test coverage, performance validation, docs
            │
-2028 Q1  ──┴── v1.0 STABLE RELEASE
+2028 Q3  ──┴── v1.0 STABLE RELEASE
                 (Q4 2027 — stretch goal if M1–M8 finish ahead of plan)
 ```
 
@@ -46,7 +46,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ## Milestone Details
 
-### M1 — Foundation (Q4 2026)
+### M1 — Foundation (Q2 2027)
 
 **Goal:** A single simulated agent that flies deterministically.
 
@@ -64,7 +64,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M2 — Terrain & Physics (Q1 2027)
+### M2 — Terrain & Physics (Q2 2027)
 
 **Goal:** Aerodynamically correct flight over simulated terrain.
 
@@ -81,7 +81,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M3 — Swarm Scale (Q2 2027)
+### M3 — Swarm Scale (Q3 2027)
 
 **Goal:** 50,000 simultaneous agents at real-time.
 
@@ -97,7 +97,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M4 — Sensors & Electronic Warfare (Q2 2027)
+### M4 — Sensors & Electronic Warfare (Q3 2027)
 
 - [ ] Radar detection: RCS lookup tables, range equation, SNR threshold
 - [ ] EO/IR: FoV raycasting, IR signature model, background clutter
@@ -112,7 +112,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M5 — RL Interface / Public Alpha (Q3 2027)
+### M5 — RL Interface / Public Alpha (Q4 2027)
 
 **This is the first public alpha release — first version available for external testing and open issue tracking on running code.**
 
@@ -130,7 +130,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M6 — Scenario Engine (Q3 2027)
+### M6 — Scenario Engine (Q4 2027)
 
 - [ ] Full YAML scenario schema with JSON Schema validation
 - [ ] Entity templates (threat library: DJI-class, Lancet-class, Shahed-class archetypes)
@@ -143,7 +143,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M7 — Communications & C2 / Interoperability (Q4 2027)
+### M7 — Communications & C2 / Interoperability (Q1 2028)
 
 - [ ] Mesh networking: link quality, packet loss, latency, bandwidth
 - [ ] C2 link model with configurable jamming susceptibility
@@ -153,7 +153,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M8 — Human-in-the-Loop (Q4 2027)
+### M8 — Human-in-the-Loop (Q2 2028)
 
 - [ ] VR/FPV operator interface (headset + controller input)
 - [ ] Behavior tree engine for supervised autonomy
@@ -163,7 +163,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### M9 — Hardening & Certification (Q1 2028)
+### M9 — Hardening & Certification (Q2 2028)
 
 - [ ] ≥ 90 % unit test line coverage
 - [ ] Full API documentation (Doxygen)
@@ -175,7 +175,7 @@ This document is the authoritative public roadmap for LOITER-SIM. It reflects cu
 
 ---
 
-### v1.0 Stable Release (Q1 2028)
+### v1.0 Stable Release (Q3 2028)
 
 - [ ] All M1–M9 exit criteria met
 - [ ] Community Edition (GPL v3) tagged and released
