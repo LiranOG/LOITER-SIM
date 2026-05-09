@@ -115,7 +115,7 @@ If you have an hour and a technical background:
 
 LOITER-SIM welcomes contributions, particularly from domain experts. At the current pre-alpha stage, **the most valuable contribution is rigorous critique of the specifications** — open a GitHub Issue tagged `[review]` if you have expertise in aerodynamics, radar, electronic warfare, INS/GPS, multi-agent RL, or military simulation standards.
 
-When core development begins (Q2 2027), code contributions will be accepted under the process documented in [CONTRIBUTING.md](./CONTRIBUTING.md). All contributions must follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
+When core development begins (Q1 2027), code contributions will be accepted under the process documented in [CONTRIBUTING.md](./CONTRIBUTING.md). All contributions must follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ---
 
