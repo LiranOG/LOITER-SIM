@@ -40,7 +40,7 @@ Three honest reasons:
 
 1. **Architecture decisions made in the absence of public review tend to be wrong.** Domain experts in aerodynamics, radar physics, and military simulation standards must have the opportunity to critique the design *before* it is locked in by code that depends on it.
 2. **The specifications represent a methodological choice, not elapsed time.** This is a docs-first project by design. The author has chosen to publish the architecture before the implementation precisely because the credibility of a simulator depends on the verifiability of its physics — and that verifiability begins with publishing the equations and citations openly.
-3. **The author is a solo architect, not a funded team.** Open-source defense-adjacent simulation work at this scope from a single contributor will move deliberately. The Q1 2028 v1.0 target reflects realistic effort estimates for the work involved. Implementation begins immediately, with public commits visible from day one of M1.
+3. **The author is a solo architect, not a funded team.** Open-source defense-adjacent simulation work at this scope from a single contributor will move deliberately. The Q3 2028 v1.0 target reflects realistic effort estimates for the work involved. Implementation begins immediately, with public commits visible from day one of M1.
 
 If, by Q2 2027, this repository still has no committed code, the project is fairly classified as vaporware and reasonable observers should treat it as such. Until then, judge the project by the rigor and correctness of the documents you can read today.
 
