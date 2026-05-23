@@ -10,7 +10,7 @@
 [![C++17](https://img.shields.io/badge/C++-17-007acc)]()
 [![Python](https://img.shields.io/badge/Python-3.10%2B-007acc)]()
 
-[![Target](https://img.shields.io/badge/v1.0--target-Q1%202028-orange)]()
+[![Target](https://img.shields.io/badge/v1.0--target-Q3%202028-orange)]()
 
 ***Train your autonomous systems against 10,000 threats before the first one ever leaves the ground.***
 
