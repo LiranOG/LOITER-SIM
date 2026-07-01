@@ -29,7 +29,7 @@ jobs:
     outputs:
       has_code: ${{ steps.check.outputs.has_code }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Check for compilable code
         id: check
         run: |
@@ -63,7 +63,7 @@ jobs:
             cc: gcc-13
             cxx: g++-13
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install dependencies
         run: |
           sudo apt-get update
@@ -84,7 +84,7 @@ jobs:
     if: needs.ci-gate.outputs.has_code == 'true'
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install clang tools
         run: sudo apt-get update && sudo apt-get install -y clang-format-17 clang-tidy-17
       - name: Check formatting
@@ -102,7 +102,7 @@ jobs:
     if: needs.ci-gate.outputs.has_code == 'true'
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake ninja-build libhdf5-dev libyaml-cpp-dev libeigen3-dev
       - name: Configure with sanitizers
@@ -130,7 +130,7 @@ jobs:
       matrix:
         python-version: ['3.10', '3.11', '3.12']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
@@ -147,7 +147,7 @@ jobs:
     if: needs.ci-gate.outputs.has_code == 'true'
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install -y cmake ninja-build libhdf5-dev libyaml-cpp-dev libeigen3-dev
       - name: Build
