@@ -20,49 +20,8 @@ LOITER-SIM is a standalone, high-performance C++17 simulation engine for loiteri
 
 The engine delivers three guarantees that no existing open-source simulator provides simultaneously: **bitwise-deterministic execution**, **physics-grade adaptive mesh refinement**, and a **production-ready RL API capable of 1000× real-time batch inference**. No game-engine black boxes. No floating-point non-determinism. Just repeatable, rigorous numerics.
 
-> [!IMPORTANT]
-> ### Author Hiatus — May to August 2026
->
-> I am stepping back from active work on all my projects, including
-> LOITER-SIM, for a few months to attend to matters in my personal
-> life. This is a brief, time-bounded pause — not abandonment.
->
-> **Honest status check, given this project's stated "vaporware test":**
->
-> LOITER-SIM is pre-alpha and intentionally docs-first. Per the
-> project README and FAQ, the binding criterion is whether committed
-> implementation code appears in this repository by **Q2 2027**. The
-> hiatus ends in August 2026, leaving the remaining design window
-> (Q3 2026 – Q4 2026) and the implementation kickoff window
-> (Q1 2027 – Q2 2027) intact. **The Q2 2027 first-executable milestone
-> and the Q3 2028 v1.0 target remain on the books** and will be
-> re-evaluated, transparently, in [`ROADMAP.md`](./ROADMAP.md) upon
-> return. If any milestone slips, the slip will be acknowledged in the
-> roadmap with the same directness applied to the original target.
->
-> **What remains valuable to do during the hiatus:**
->
-> - Specification reviews tagged `[review]` on
->   [`ARCHITECTURE.md`](./ARCHITECTURE.md),
->   [`specs/PHYSICS_SPEC.md`](./specs/PHYSICS_SPEC.md), and
->   [`specs/SENSOR_SPEC.md`](./specs/SENSOR_SPEC.md) are exactly the
->   kind of contribution this phase exists for. Reviews will be read,
->   responded to, and integrated into the architecture when I return.
-> - Domain experts in aerodynamics, radar physics, INS/GPS, multi-agent
->   reinforcement learning, or military simulation standards: your
->   critique is most valuable *before* implementation begins, not
->   after. The hiatus does not change that.
->
-> **What is paused:**
->
-> - New specification documents, Architecture Decision Records, and
->   design-decision write-ups.
-> - Repository tooling, governance polish, and pre-implementation
->   scaffolding.
->
-> **Expected resumption: approximately June–August 2026.**
->
-> — *Liran M. Schwartz (LiranOG), Founder & Lead Architect*
+> [!NOTE]
+> The milestone roadmap (implementation start, first-executable target, v1.0) is under review and will be updated with revised dates soon. See [`ROADMAP.md`](./ROADMAP.md) for the current published targets.
 
 ---
 
